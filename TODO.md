@@ -23,11 +23,13 @@ https://github.com/thumbmarkjs/thumbmarkjs
 
 ## Backend
 
+- [ ] Discover other ENS names, associated addresses
 - [x] API wrapper around 1inch, Alchemy, Etherscan, etc.
 - [x] PortfolioViewer: Displays assets, tokens, ENS, NFTs, etc.
 - [ ] LabelResolver: Maps addresses to human-readable names (known exchanges, known mixers)
-  - Get from Alchemy? Etherscan?
+  - [ ] Get from Alchemy? Etherscan?
 - [x] RelationshipAnalyzer: Identifies frequently interacted addresses and known contracts
+  - [ ] Return transaction amounts
 - [x] TimezoneAnalyzer: Estimates user timezone based on transaction timestamps
 
 ## Bonus
