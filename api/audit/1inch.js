@@ -95,9 +95,7 @@ class OneInchAPI {
   // NFT endpoints
   async getNFTsByAddress(
     address,
-    // chainIds = [1, 137, 42161, 43114, 100, 8217, 10, 8453],
-    // TODO: Remove this for production
-    chainIds = [1, 8453],
+    chainIds = [1, 137, 42161, 43114, 100, 8217, 10, 8453],
   ) {
     const data = await this.request("/nft/v2/byaddress", {
       chainIds: chainIds.join(","),
@@ -109,10 +107,7 @@ class OneInchAPI {
   // History endpoints
   async getHistory(
     address,
-    // chainIds = [1, 137, 42161, 43114, 100, 8217, 10, 8453],
-    // TODO: Remove this for production
-    // TODO: Increase limit
-    chainIds = [1, 8453],
+    chainIds = [1, 137, 42161, 43114, 100, 8217, 10, 8453],
     limit = 300,
   ) {
     const results = [];
