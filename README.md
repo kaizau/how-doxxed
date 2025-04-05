@@ -2,6 +2,12 @@
 
 A privacy audit for your wallet. What information does your public on-chain activity expose?
 
+## Hackathon Plan
+
+- Save login for the end
+- Start with core data and UI
+- Expand after thin slice is working
+
 ## Client UI
 
 - Login with World ID (or Farcaster?) to prevent bots from using the service (think: Super Captcha)
