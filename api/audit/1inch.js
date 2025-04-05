@@ -113,7 +113,7 @@ class OneInchAPI {
     // TODO: Remove this for production
     // TODO: Increase limit
     chainIds = [1, 8453],
-    limit = 100,
+    limit = 300,
   ) {
     const results = [];
 
