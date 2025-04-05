@@ -210,7 +210,7 @@ export function updateResults(data) {
               <path d="M47.4997 50.6667C49.2486 50.6667 50.6663 49.2489 50.6663 47.5C50.6663 45.7511 49.2486 44.3333 47.4997 44.3333C45.7508 44.3333 44.333 45.7511 44.333 47.5C44.333 49.2489 45.7508 50.6667 47.4997 50.6667Z" fill="white"/>
             </svg>
           </a>
-          <span class="text-gray-500 ml-2 text-sm">(${txns} TXNs)</span>
+          <span class="text-gray-500 ml-2 text-sm">(${txns} txns)</span>
         </div>`,
       )
       .join("");

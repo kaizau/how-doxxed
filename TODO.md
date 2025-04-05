@@ -1,8 +1,8 @@
 ## Finish Line 🏁
 
 - [ ] Finish application
-- [ ] UI for browser fingerprinting (table of interesting data)
-- [ ] UI for location data as a map
+- [x] UI for browser fingerprinting (table of interesting data)
+- [x] UI for location data as a map
 - [ ] UI polish
   - [ ] Mobile width
 
@@ -10,11 +10,11 @@
 
 - [x] Enter your wallet address
 - [x] "What your browser tells us"
-  - Show first while blockchain data is loading
-  - Browser fingerprinting
+  - Show first while blockchain data is loading -[x] Browser fingerprinting
 - [ ] "What your wallet tells us"
   - Balance
   - ENS names
+  - Basenames
   - Tokens
   - Age of wallet, recent activity
   - Graph of frequently interacted addresses

@@ -1,0 +1,65 @@
+.magnifier {
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid black;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: none;
+  overflow: hidden;
+}
+
+.magnifier.active {
+  display: block;
+}
+
+.background-dollars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hidden-dollar {
+  position: absolute;
+  font-size: 32px;
+  font-weight: bold;
+  transform: rotate(var(--rotation));
+  opacity: 0.005;
+  color: black;
+  transition: all 0.3s ease;
+}
+
+.magnifier:hover .hidden-dollar,
+.hidden-dollar.visible {
+  opacity: 1;
+  transform: rotate(var(--rotation)) scale(2);
+  font-weight: bold;
+  color: black;
+}
+
+.magnifier-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1001;
+  background: black;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: monospace;
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.magnifier-toggle:hover {
+  opacity: 0.8;
+}
