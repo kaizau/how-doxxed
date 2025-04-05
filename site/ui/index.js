@@ -373,21 +373,23 @@ export function updateResults(data) {
 }
 
 // Add copy function to handle clipboard operations
-function copyAddress(event, address) {
+export function copyAddress(event, address) {
+  // Get the button element (parent of SVG if clicked on SVG)
+  const button = event.target.closest("button");
+  if (!button) return;
+
   navigator.clipboard
     .writeText(address)
     .then(() => {
-      // Show success tooltip
-      const button = event.currentTarget;
       const tooltip = button.querySelector("span");
       if (tooltip) {
         tooltip.textContent = "Copied!";
-        tooltip.classList.add("bg-green-500");
+        tooltip.classList.add("bg-green-700");
 
         // Reset after 2 seconds
         setTimeout(() => {
           tooltip.textContent = "Copy address";
-          tooltip.classList.remove("bg-green-500");
+          tooltip.classList.remove("bg-green-700");
         }, 2000);
       }
     })
@@ -397,7 +399,7 @@ function copyAddress(event, address) {
 }
 
 // Add function to analyze address
-function analyzeAddress(address) {
+export function analyzeAddress(address) {
   // Hide landing content and show loading screen
   document.getElementById("landing-content").classList.add("hidden");
   document.getElementById("loading-screen").classList.remove("hidden");
