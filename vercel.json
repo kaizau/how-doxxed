@@ -3,5 +3,10 @@
   "devCommand": "pnpm parcel",
   "outputDirectory": "dist",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/", "destination": "/site/index.ejs" },
+    { "source": "/results", "destination": "/api/results" },
+    { "source": "/api/(.*)", "destination": "/api/$1" }
+  ]
 }

@@ -1,0 +1,143 @@
+<!doctype html>
+<html class="bg-[#E5E5E5]">
+  <head>
+    <%- include("/site/_shared/head.ejs", {
+      title: "Analysis Results - How Doxxed Am I?",
+      description: "Your onchain activity might be exposing more about you than you think."
+    }) %>
+  </head>
+  <body class="min-h-screen p-6">
+    <!-- Header -->
+    <header class="max-w-xl mx-auto flex items-center gap-2 mb-8">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-black rounded-full flex items-center justify-center">
+          <div class="w-4 h-4 bg-white"></div>
+        </div>
+        <span class="font-mono text-xl tracking-wider">HDAI</span>
+      </a>
+    </header>
+
+    <!-- Wallet Address -->
+    <div class="max-w-xl mx-auto mb-12">
+      <div class="flex items-center gap-2">
+        <div class="w-2 h-2 bg-black rounded-full"></div>
+        <h2 class="font-mono text-sm tracking-wider">ANALYZING</h2>
+      </div>
+      <h1 class="font-mono text-lg mt-2 break-all tracking-wider"><%= typeof address !== 'undefined' ? address : '' %></h1>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-xl mx-auto space-y-12">
+      <!-- Portfolio Section -->
+      <section>
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-2 h-2 bg-black rounded-full"></div>
+          <h2 class="font-mono text-sm tracking-wider">PORTFOLIO</h2>
+        </div>
+        <div class="flex items-baseline gap-3 mb-4">
+          <span class="text-4xl font-mono font-bold tracking-wider">$7,164.51</span>
+          <span class="text-red-500 font-mono">-5.53%</span>
+        </div>
+        <div class="h-24 w-full">
+          <svg viewBox="0 0 100 30" class="w-full h-full stroke-red-500 stroke-[0.5] fill-none opacity-80">
+            <path d="M0,5 Q25,10 50,15 T100,25" />
+          </svg>
+        </div>
+        <div class="text-xs font-mono text-gray-500 mt-1">(CHAIN ICONS HERE)</div>
+      </section>
+
+      <!-- ENS Names -->
+      <section>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-2 h-2 bg-black rounded-full"></div>
+          <h2 class="font-mono text-sm tracking-wider">ENS</h2>
+        </div>
+        <div class="space-y-2 font-mono text-sm">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+            <span>ZENI.ETH</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-400"></span>
+            <span>LEEKNOWLTON.ETH</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+            <span>LEEKNOWLTON.BASE.ETH</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+            <span>BUCK.BASE.ETH</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-gray-400"></span>
+            <span>ZENI.BASE.ETH</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Wallet Relationships -->
+      <section>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-2 h-2 bg-black rounded-full"></div>
+          <h2 class="font-mono text-sm tracking-wider">WALLET RELATIONSHIPS</h2>
+        </div>
+        <div class="font-mono text-xs">
+          <p class="text-gray-500 mb-3">WALLET ADDRESS ($ TRANSACTED, TXN COUNT)</p>
+          <div class="space-y-[0.35rem]">
+            <p>1. 0xE55...1BA27 ($49.2K, 59 TXNS)</p>
+            <p>2. 0xA1C...92939 ($14K, 240 TXNS)</p>
+            <p>3. 0x7F3...AA882 ($8.6K, 103 TXNS) ▼</p>
+            <p>4. 0xB2D...9EC11 ($5.4K, 12 TXNS)</p>
+            <p>5. 0x9E4...C80F2 ($4.9K, 87 TXNS)</p>
+            <p>6. 0xCC9...F0B73 ($2.7K, 31 TXNS) ▼</p>
+            <p>7. 0x110...EA58F ($2.2K, 67 TXNS)</p>
+            <p>8. 0xD11...2AC37 ($1.6K, 9 TXNS)</p>
+            <p>9. 0x4A9...D1D41 ($830, 15 TXNS)</p>
+            <p>10. 0xFE8...1B9D0 ($412, 3 TXNS)</p>
+          </div>
+        </div>
+
+        <div class="mt-8 relative h-48">
+          <!-- Placeholder for bubble chart -->
+          <div class="absolute bottom-4 right-4 w-24 h-24 border-2 border-black rounded-full opacity-20"></div>
+          <div class="absolute top-8 left-8 w-16 h-16 border-2 border-black rounded-full opacity-20"></div>
+          <div class="absolute top-4 right-16 w-12 h-12 border-2 border-black rounded-full opacity-20"></div>
+          <div class="absolute bottom-12 left-12 w-8 h-8 border-2 border-black rounded-full opacity-20"></div>
+        </div>
+      </section>
+
+      <!-- Location Data -->
+      <section>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-2 h-2 bg-black rounded-full"></div>
+          <h2 class="font-mono text-sm tracking-wider">LOCATION DATA</h2>
+        </div>
+        <h3 class="font-mono text-xs text-gray-500 mb-3">TRANSACTIONS BY TIME OF DAY (UTC)</h3>
+        <div class="space-y-2 mb-6">
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-mono w-12">00:00</span>
+            <div class="h-4 bg-black rounded-sm" style="width: 60%"></div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-mono w-12">01:00</span>
+            <div class="h-4 bg-black rounded-sm" style="width: 80%"></div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-mono w-12">02:00</span>
+            <div class="h-4 bg-black rounded-sm" style="width: 30%"></div>
+          </div>
+        </div>
+        <p class="font-mono text-xs">FARCASTER LOCATION: OKINAWA, JAPAN</p>
+      </section>
+    </main>
+
+    <script>
+      function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+          // Could add a toast notification here
+        });
+      }
+    </script>
+  </body>
+</html> 
