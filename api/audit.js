@@ -1,5 +1,5 @@
 import { oneInchAPI } from "./audit/1inch.js";
-import { ensToAddress } from "./audit/alchemy.js";
+import { ensToAddress, addressToEns } from "./audit/alchemy.js";
 import { analyzeTimezone, analyzeRelationships } from "./audit/analyze.js";
 
 export default async function handler(request, response) {
@@ -18,13 +18,15 @@ export default async function handler(request, response) {
   }
 
   // Fetch data
-  let value, nfts, history;
+  let value, nfts, history, ensNames;
   try {
+    const requestEnsNames = addressToEns(address);
     const requestValue = oneInchAPI.getPortfolioValueChart(address);
     const requestNFTs = oneInchAPI.getNFTsByAddress(address);
     const requestHistory = oneInchAPI.getHistory(address);
-    [value, nfts, history] = await Promise.all([
+    [value, ensNames, nfts, history] = await Promise.all([
       requestValue,
+      requestEnsNames,
       requestNFTs,
       requestHistory,
     ]);
@@ -37,5 +39,5 @@ export default async function handler(request, response) {
 
   return response
     .status(200)
-    .json({ address, value, nfts, history, timezone, relationships });
+    .json({ address, value, ensNames, nfts, history, timezone, relationships });
 }

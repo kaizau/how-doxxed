@@ -17,3 +17,22 @@ export async function ensToAddress(ensName) {
     throw error;
   }
 }
+
+export async function addressToEns(address) {
+  try {
+    console.log(`[alchemy] Getting ENS domains for address ${address}`);
+
+    const ensContractAddress = "0xD4416b13d2b3a9aBae7AcD5D6C2BbDBE25686401";
+    const nfts = await alchemy.nft.getNftsForOwner(address, {
+      contractAddresses: [ensContractAddress],
+    });
+    const ensDomains = nfts.ownedNfts.map((nft) => nft.name);
+    return ensDomains;
+  } catch (error) {
+    console.error(
+      `[alchemy] Error getting ENS domains for address ${address}:`,
+      error,
+    );
+    throw error;
+  }
+}
