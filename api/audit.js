@@ -37,5 +37,5 @@ export default async function handler(request, response) {
 
   return response
     .status(200)
-    .json({ value, nfts, history, timezone, relationships });
+    .json({ address, value, nfts, history, timezone, relationships });
 }
