@@ -1,16 +1,21 @@
-// eslint-disable-next-line no-unused-vars
 export default async function handler(request, response) {
-  const wallet = "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5";
+  // TODO Resolve ENS
 
-  const requestValue = getWalletValue(wallet, 1);
-  const requestNFTs = getWalletNFTs(wallet, 1);
-  const requestHistory = getWalletHistory(wallet, 1);
+  // const wallet = "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5";
+  // const wallet = "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97";
+  const wallet = "0x2BbC6AA68516f03DC5B7DA77809Ba63d6587a0cd";
 
+  // Fetch data
+  const requestValue = getWalletValue(wallet);
+  const requestNFTs = getWalletNFTs(wallet);
+  const requestHistory = getWalletHistory(wallet, 1); // TODO May need to loop through chains
   const [value, nfts, history] = await Promise.all([
     requestValue,
     requestNFTs,
     requestHistory,
   ]);
+
+  // TODO: Analyze data
 
   return response.status(200).json({ value, nfts, history });
 }
@@ -56,6 +61,7 @@ async function getWalletBalances(address, chainId) {
 }
 
 // Get NFTs owned by the wallet
+// list of supported chains `ETHEREUM = 1, POLYGON = 137, ARBITRUM = 42161, AVALANCHE = 43114, GNOSIS = 100, KLAYTN = 8217, OPTIMISM = 10, BASE = 8453`
 async function getWalletNFTs(address) {
   const base = "https://api.1inch.dev/nft/v2/byaddress";
   const chainIds = [1, 137, 42161, 43114, 100, 8217, 10, 8453];
