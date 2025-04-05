@@ -3,12 +3,15 @@ import { ensToAddress, addressToEns } from "./audit/alchemy.js";
 import { analyzeTimezone, analyzeRelationships } from "./audit/analyze.js";
 
 export default async function handler(request, response) {
-  // let address = "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5";
-  // let address = "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97";
-  // let address = "0x2BbC6AA68516f03DC5B7DA77809Ba63d6587a0cd";
-  // let address = "zeni.eth";
+  if (request.method !== "POST") {
+    return response.status(405).json({ error: "Method not allowed" });
+  }
 
-  let address = request.query.address;
+  let address = request?.body?.address;
+  if (!address) {
+    return response.status(400).json({ error: "Address is required" });
+  }
+
   if (address.includes(".")) {
     try {
       address = await ensToAddress(address);
@@ -17,13 +20,14 @@ export default async function handler(request, response) {
     }
   }
 
-  // Fetch data
+  // Fetch all the things
   let value, nfts, history, ensNames;
   try {
     const requestEnsNames = addressToEns(address);
     const requestValue = oneInchAPI.getPortfolioValueChart(address);
     const requestNFTs = oneInchAPI.getNFTsByAddress(address);
     const requestHistory = oneInchAPI.getHistory(address);
+
     [value, ensNames, nfts, history] = await Promise.all([
       requestValue,
       requestEnsNames,
@@ -33,6 +37,9 @@ export default async function handler(request, response) {
   } catch (error) {
     return response.status(400).json({ error: "Error fetching data" });
   }
+
+  // TODO Associate addresses with known entities
+  // TODO Additional history hop on high relevance addresses
 
   const timezone = analyzeTimezone(history);
   const relationships = analyzeRelationships(history);
