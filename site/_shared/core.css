@@ -1,8 +1,18 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
 
 @content "./site/**/*.{html,ejs,js,ts}";
 
 @layer base {
+  :root {
+    --font-sans:
+      "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      sans-serif;
+    --font-mono:
+      "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      monospace;
+  }
+
   html {
     @apply min-h-full;
   }
@@ -10,9 +20,14 @@
   body {
     @apply flex flex-col min-h-full text-slate-800;
     @apply bg-no-repeat bg-gradient-to-br from-slate-50 to-slate-300;
+    font-family: var(--font-sans);
   }
+}
 
-  .Container {
-    @apply w-full mx-auto max-w-screen-xl px-6;
-  }
+.Container {
+  @apply w-full mx-auto max-w-screen-xl px-6;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
 }
