@@ -1,10 +1,20 @@
 ## Finish Line 🏁
 
-- [ ] Finish application
+- [x] Finish application
 - [x] UI for browser fingerprinting (table of interesting data)
 - [x] UI for location data as a map
-- [ ] UI polish
-  - [ ] Mobile width
+- [x] Mobile width
+- [x] Copy edits
+
+## Post Hackathon
+
+- [ ] Update README
+- [ ] Update API keys, rate limits, etc.
+- [ ] Disable all Vercel logging
+- [ ] More modular implementation
+- [ ] List future ideas
+
+---
 
 ## Client UI
 

@@ -19,13 +19,12 @@
         <h1 class="text-4xl font-mono mb-6 text-center">HOW DOXXED AM I?</h1>
 
         <!-- Subtitle -->
-        <p class="text-xl mb-8 max-w-lg mx-auto px-4">
-          Your onchain activity might be exposing more about you than you think.
+        <p class="text-xl mb-10 max-w-lg mx-auto px-4">
+          Your on-chain and browsing activity may be exposing more than you think.
         </p>
 
         <!-- Search Section -->
-        <section class="mb-12" id="search-section">
-          <h2 class="text-2xl font-bold mb-4 text-center">Audit Your Wallet Privacy</h2>
+        <section id="search-section">
           <form id="search-form" class="relative max-w-xl mx-auto">
             <input
               type="search"
@@ -38,19 +37,21 @@
               autocorrect="off"
               autocapitalize="off"
               spellcheck="false"
+              autofocus
             >
-            <button type="submit" class="absolute right-4 top-1/2 transform -translate-y-1/2 hover:opacity-70 transition-opacity">
+            <button type="submit" class="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
               <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
               </svg>
             </button>
           </form>
         </section>
-        
 
         <!-- Feature Grid -->
          <section>
-          <p class="text-base mb-6 font-mono text-center">Gauge Privacy Leakage</p>
+          <p class="text-base px-4 mt-4 mb-10 text-center max-w-md mx-auto text-gray-500">
+            See what an attacker can learn about you from 100% public information.
+          </p>
           <div class="grid grid-cols-3 gap-8 mb-4">
             <!-- Location -->
             <div class="flex flex-col items-center">
