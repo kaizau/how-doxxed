@@ -14,17 +14,16 @@ const DOM = {
 };
 
 // Rotate loading messages
+// TODO Refactor to show and hide
 let messageInterval;
 function startLoadingMessages() {
-  const messages = DOM.loadingMessages.textContent
-    .split("\n")
-    .filter((msg) => msg.trim());
+  const messageSpans = DOM.loadingMessages.querySelectorAll("span");
   let currentIndex = 0;
-
   messageInterval = setInterval(() => {
-    currentIndex = (currentIndex + 1) % messages.length;
-    DOM.loadingMessage.textContent = messages[currentIndex].trim();
-  }, 3000);
+    currentIndex = (currentIndex + 1) % messageSpans.length;
+    DOM.loadingMessage.textContent =
+      messageSpans[currentIndex].textContent.trim();
+  }, 2500);
 }
 
 function stopLoadingMessages() {
@@ -63,9 +62,6 @@ if (addressFromUrl) {
 }
 
 async function beginAudit(address) {
-  const startEvent = new CustomEvent("auditStart", { detail: { address } });
-  document.dispatchEvent(startEvent);
-
   // Hide landing content and show loading screen
   DOM.landingContent.classList.add("hidden");
   DOM.loadingScreen.classList.remove("hidden");
