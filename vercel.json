@@ -6,7 +6,6 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/", "destination": "/site/index.ejs" },
-    { "source": "/results", "destination": "/api/results" },
-    { "source": "/api/(.*)", "destination": "/api/$1" }
+    { "source": "/results", "destination": "/api/results" }
   ]
 }
