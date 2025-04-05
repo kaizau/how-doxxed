@@ -140,7 +140,6 @@
                 <path d="M0,5 Q25,10 50,15 T100,25" />
               </svg>
             </div>
-            <div class="text-xs font-mono text-gray-500 mt-1">(CHAIN ICONS HERE)</div>
           </section>
 
           <!-- ENS Names -->
@@ -181,12 +180,17 @@
             <div class="space-y-2 mb-6" id="timezone-data">
               <!-- Timezone data will be populated here -->
             </div>
-            <p class="font-mono text-xs" id="location-text">FARCASTER LOCATION: OKINAWA, JAPAN</p>
+            <!-- <p class="font-mono text-xs" id="location-text">FARCASTER LOCATION: OKINAWA, JAPAN</p> -->
           </section>
         </div>
       </section>
     </main>
 
+    <script defer type="module">
+      import { copyAddress, analyzeAddress } from '/site/ui/index.js';
+      window.copyAddress = copyAddress;
+      window.analyzeAddress = analyzeAddress;
+    </script>
     <script defer type="module" src="/site/index.js"></script>
   </body>
 </html>
