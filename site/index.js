@@ -9,7 +9,6 @@ const DOM = {
   landingContent: document.getElementById("landing-content"),
   loadingScreen: document.getElementById("loading-screen"),
   resultsSection: document.getElementById("results-section"),
-  walletAddressResolved: document.getElementById("wallet-address-resolved"),
 };
 
 // Bind events
@@ -28,11 +27,9 @@ DOM.backButton.addEventListener("click", () => {
   window.history.pushState({}, "", url);
 
   // Reset UI state
-  DOM.addressInput.value = "";
   DOM.landingContent.classList.remove("hidden");
   DOM.loadingScreen.classList.add("hidden");
   DOM.resultsSection.classList.add("hidden");
-  DOM.walletAddressResolved.textContent = "";
 });
 
 // Check initial ?address param
@@ -50,8 +47,6 @@ async function beginAudit(address) {
   // Hide landing content and show loading screen
   DOM.landingContent.classList.add("hidden");
   DOM.loadingScreen.classList.remove("hidden");
-  // Clear resolved address
-  DOM.walletAddressResolved.textContent = "";
 
   // Load and render analysis modules
   const browserData = await analyzeBrowser();
