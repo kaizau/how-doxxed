@@ -141,4 +141,4 @@ class OneInchAPI {
 
 // Export a singleton instance
 const oneInchAPI = new OneInchAPI(process.env.ONEINCH_API_KEY);
-export default oneInchAPI;
+export { oneInchAPI };
