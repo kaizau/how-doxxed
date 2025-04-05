@@ -16,10 +16,10 @@
 
 https://github.com/thumbmarkjs/thumbmarkjs
 
-- OS + device
-- Geolocation via IP (https://geolocation-db.com/)
-- Time zone
-- Text in clipboard
+- [x] OS + device
+- [x] Geolocation via IP
+- [x] Time zone
+- [x] Text in clipboard
 
 ## Backend
 

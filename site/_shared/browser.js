@@ -6,6 +6,7 @@ export async function analyzeBrowser() {
     const data = await getFingerprintData();
     data.fingerprint = fingerprint;
     console.log(data);
+
     return data;
   } catch (error) {
     console.error("Error analyzing browser:", error);
@@ -17,6 +18,7 @@ async function analyzeLocation() {
     const response = await fetch("https://ipapi.co/json/");
     const data = await response.json();
     console.log(data);
+
     return data;
   } catch (error) {
     console.error("Error fetching location:", error);
