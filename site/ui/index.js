@@ -1,4 +1,4 @@
-import { Chart } from "chart.js/auto";
+import Chart from "chart.js/auto";
 import "chartjs-adapter-date-fns";
 import L from "leaflet";
 
