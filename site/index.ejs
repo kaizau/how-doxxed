@@ -5,6 +5,12 @@
       title: "How Doxxed Am I?",
       description: "Your onchain activity might be exposing more about you than you think."
     }) %>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""></script>
   </head>
   <body class="min-h-screen p-4">
     <!-- Main Content -->
@@ -179,6 +185,19 @@
               <!-- Timezone data will be populated here -->
             </div>
             <!-- <p class="font-mono text-xs" id="location-text">FARCASTER LOCATION: OKINAWA, JAPAN</p> -->
+          </section>
+
+          <!-- Browser Fingerprint -->
+          <section>
+            
+            <div class="flex items-center gap-2 mb-4">
+              <img src="./images/icons/fingerprint.svg" alt="Browser" class="h-4">
+              <h2 class="font-mono text-sm tracking-wider">BROWSER FINGERPRINT</h2>
+            </div>
+            <div id="location-map" class="mt-4 h-48 w-full rounded-lg border border-black"></div>
+            <div class="space-y-2" id="browser-fingerprint">
+              <!-- Browser fingerprint data will be populated here -->
+            </div>
           </section>
         </div>
       </section>

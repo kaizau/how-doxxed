@@ -2,9 +2,14 @@ import { Chart } from "chart.js/auto";
 import { TimeScale, TimeSeriesScale } from "chart.js";
 import "chartjs-adapter-date-fns";
 
+// Declare L as global since it's loaded via CDN
+const L = window.L;
+
 Chart.register(TimeScale, TimeSeriesScale);
 
 let portfolioChart = null;
+let map = null;
+let marker = null;
 
 export function updateResults(data) {
   // Show resolved address if available
@@ -410,6 +415,110 @@ export function updateResults(data) {
           </div>
         </div>`;
       })
+      .join("");
+  }
+
+  // Update browser fingerprint data
+  const browserContainer = document.getElementById("browser-fingerprint");
+  const mapContainer = document.getElementById("location-map");
+
+  if (data.browser && data.location) {
+    const fingerprintData = data.browser;
+    const locationData = data.location;
+
+    // Initialize or update map if location data is available
+    if (locationData.latitude && locationData.longitude) {
+      // Wait for the map container to be visible
+      const initMap = () => {
+        if (!map && mapContainer && mapContainer.offsetParent !== null) {
+          map = L.map("location-map").setView(
+            [locationData.latitude, locationData.longitude],
+            13,
+          );
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          }).addTo(map);
+
+          // Add marker
+          marker = L.marker([
+            locationData.latitude,
+            locationData.longitude,
+          ]).addTo(map);
+        } else if (map && marker) {
+          // Update existing map
+          map.setView([locationData.latitude, locationData.longitude], 13);
+          marker.setLatLng([locationData.latitude, locationData.longitude]);
+        }
+      };
+
+      // Try to initialize map immediately
+      initMap();
+
+      // If map container is not visible yet, wait for it
+      if (mapContainer && mapContainer.offsetParent === null) {
+        const observer = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            initMap();
+            observer.disconnect();
+          }
+        });
+        observer.observe(mapContainer);
+      }
+    }
+
+    const privacyRelevantInfo = [
+      {
+        title: "Location",
+        value: `${locationData.city}, ${locationData.region}, ${locationData.country_name}`,
+      },
+      {
+        title: "Coordinates",
+        value: `${locationData.latitude}, ${locationData.longitude}`,
+      },
+      {
+        title: "IP Address",
+        value: locationData.ip,
+      },
+
+      {
+        title: "Timezone",
+        value: `${locationData.timezone} (UTC${locationData.utc_offset})`,
+      },
+      {
+        title: "Permissions",
+        value: Object.entries(fingerprintData.permissions)
+          .filter(([_, status]) => status === "granted")
+          .map(([permission]) => permission),
+        isList: true,
+      },
+    ];
+
+    browserContainer.innerHTML = privacyRelevantInfo
+      .map(
+        (info) => `
+        <div class="flex gap-4 items-baseline">
+          <div class="shrink-0">
+            <span class="font-mono text-xs text-gray-500">${info.title}</span>
+          </div>
+          <div class="flex-1">
+            ${
+              info.isList
+                ? `<div class="flex flex-col gap-2">
+                    ${info.value
+                      .map(
+                        (permission) => `
+                      <span class="font-mono text-xs break-all">${permission}</span>
+                    `,
+                      )
+                      .join("")}
+                  </div>`
+                : `<span class="font-mono text-xs break-all">${info.value}</span>`
+            }
+          </div>
+        </div>
+      `,
+      )
       .join("");
   }
 }

@@ -48,5 +48,9 @@ async function beginAudit(address) {
   document.getElementById("loading-screen").classList.add("hidden");
   document.getElementById("results-section").classList.remove("hidden");
 
-  updateResults(addressData);
+  updateResults({
+    ...addressData,
+    browser: browserData,
+    location: locationData,
+  });
 }
