@@ -21,9 +21,14 @@ https://github.com/thumbmarkjs/thumbmarkjs
 - [x] Time zone
 - [x] Text in clipboard
 
+https://github.com/MetaMask/detect-provider
+
+- [ ] Any better options?
+
 ## Backend
 
-- [ ] Discover other ENS names, associated addresses
+- [x] Discover other ENS names, associated addresses
+  - [ ] Check Base, Farcaster, etc?
 - [x] API wrapper around 1inch, Alchemy, Etherscan, etc.
 - [x] PortfolioViewer: Displays assets, tokens, ENS, NFTs, etc.
 - [ ] LabelResolver: Maps addresses to human-readable names (known exchanges, known mixers)
