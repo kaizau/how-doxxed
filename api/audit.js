@@ -1,5 +1,6 @@
 import { oneInchAPI } from "./1inch.js";
 import { ensToAddress } from "./alchemy.js";
+import { analyzeTimezone } from "./analyze.js";
 
 export default async function handler(request, response) {
   // let address = "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5";
@@ -17,16 +18,22 @@ export default async function handler(request, response) {
   }
 
   // Fetch data
-  const requestValue = oneInchAPI.getPortfolioValueChart(address);
-  const requestNFTs = oneInchAPI.getNFTsByAddress(address);
-  const requestHistory = oneInchAPI.getHistory(address);
-  const [value, nfts, history] = await Promise.all([
-    requestValue,
-    requestNFTs,
-    requestHistory,
-  ]);
+  let value, nfts, history;
+  try {
+    const requestValue = oneInchAPI.getPortfolioValueChart(address);
+    const requestNFTs = oneInchAPI.getNFTsByAddress(address);
+    const requestHistory = oneInchAPI.getHistory(address);
+    [value, nfts, history] = await Promise.all([
+      requestValue,
+      requestNFTs,
+      requestHistory,
+    ]);
+  } catch (error) {
+    return response.status(400).json({ error: "Error fetching data" });
+  }
 
   // TODO: Analyze data
+  const timezone = analyzeTimezone(history);
 
   return response.status(200).json({ value, nfts, history });
 }

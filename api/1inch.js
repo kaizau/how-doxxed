@@ -81,10 +81,14 @@ class OneInchAPI {
 
   // Portfolio endpoints
   async getPortfolioValueChart(addresses) {
-    return this.request("/portfolio/portfolio/v4/general/value_chart", {
-      addresses: Array.isArray(addresses) ? addresses.join(",") : addresses,
-      use_cache: "true",
-    });
+    const data = await this.request(
+      "/portfolio/portfolio/v4/general/value_chart",
+      {
+        addresses: Array.isArray(addresses) ? addresses.join(",") : addresses,
+        use_cache: "true",
+      },
+    );
+    return data.result;
   }
 
   // NFT endpoints
@@ -92,10 +96,11 @@ class OneInchAPI {
     address,
     chainIds = [1, 137, 42161, 43114, 100, 8217, 10, 8453],
   ) {
-    return this.request("/nft/v2/byaddress", {
+    const data = await this.request("/nft/v2/byaddress", {
       chainIds: chainIds.join(","),
       address,
     });
+    return data.assets;
   }
 
   // History endpoints
@@ -134,9 +139,9 @@ class OneInchAPI {
   }
 
   // Balance endpoints
-  async getBalances(address, chainId) {
-    return this.request(`/balance/v1.2/${chainId}/balances/${address}`);
-  }
+  // async getBalances(address, chainId) {
+  //   return this.request(`/balance/v1.2/${chainId}/balances/${address}`);
+  // }
 }
 
 // Export a singleton instance

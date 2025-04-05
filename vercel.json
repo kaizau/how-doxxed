@@ -3,6 +3,5 @@
   "devCommand": "pnpm parcel",
   "outputDirectory": "dist",
   "cleanUrls": true,
-  "trailingSlash": false,
-  "redirects": [{ "source": "/api/example", "destination": "/api/vercel" }]
+  "trailingSlash": false
 }
