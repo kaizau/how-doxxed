@@ -57,6 +57,8 @@ class OneInchAPI {
       url.searchParams.append(key, value);
     });
 
+    console.log(`[1inch] Requesting: ${endpoint}`, { params });
+
     return this.rateLimiter.enqueue(async () => {
       const response = await fetch(url, {
         headers: {
@@ -65,12 +67,15 @@ class OneInchAPI {
       });
 
       if (!response.ok) {
-        throw new Error(
-          `1inch API error: ${response.status} ${response.statusText}`,
+        console.error(
+          `[1inch] Error: ${response.status} ${response.statusText} for ${endpoint}`,
         );
+        throw new Error(`${response.status} ${response.statusText}`);
       }
 
-      return response.json();
+      const data = await response.json();
+      console.log(`[1inch] Success: ${endpoint}`);
+      return data;
     });
   }
 
@@ -94,11 +99,38 @@ class OneInchAPI {
   }
 
   // History endpoints
-  async getHistory(address, chainId, limit = 100) {
-    return this.request(`/history/v2.0/history/${address}/events`, {
-      chainId,
-      limit,
-    });
+  async getHistory(
+    address,
+    chainIds = [1, 137, 42161, 43114, 100, 8217, 10, 8453],
+    limit = 100,
+  ) {
+    const results = [];
+
+    for (const chainId of chainIds) {
+      try {
+        const history = await this.request(
+          `/history/v2.0/history/${address}/events`,
+          {
+            chainId,
+            limit,
+          },
+        );
+
+        if (history && history.items && history.items.length > 0) {
+          results.push({
+            chainId,
+            history,
+          });
+        }
+      } catch (error) {
+        // Silently skip chains that error or have no data
+        console.log(
+          `[1inch] Unable to fetch history for chain ${chainId}: ${error}`,
+        );
+      }
+    }
+
+    return results;
   }
 
   // Balance endpoints
