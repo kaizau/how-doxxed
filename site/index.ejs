@@ -81,6 +81,17 @@
             </button>
           </form>
         </section>
+
+        <!-- Powered By Section -->
+        <footer>
+          <p class="text-sm mb-4 font-mono">POWERED BY</p>
+          <div class="flex justify-center items-center gap-10">
+            <img src="./images/1inch.png" alt="ENS" class="h-12">
+            <img src="./images/world.png" alt="Worldcoin" class="h-10">
+            <img src="./images/ens.svg" alt="ENS" class="h-12">
+            <img src="./images/farcaster.svg" alt="Farcaster" class="h-10">
+          </div>
+        </footer>
       </div>
 
       <!-- Loading Screen (Hidden by default) -->
@@ -93,6 +104,16 @@
 
       <!-- Results Section (Hidden by default) -->
       <section id="results-section" class="hidden">
+        <!-- Back Button -->
+        <div class="max-w-xl mx-auto mb-8">
+          <button id="back-button" class="flex items-center gap-2 text-sm font-mono hover:opacity-70 transition-opacity">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            BACK TO SEARCH
+          </button>
+        </div>
+
         <!-- Wallet Address -->
         <div class="max-w-xl mx-auto mb-12">
           <div class="flex items-center gap-2">
@@ -169,17 +190,6 @@
           </section>
         </div>
       </section>
-
-      <!-- Powered By Section -->
-      <footer>
-        <p class="text-sm mb-4 font-mono">POWERED BY</p>
-        <div class="flex justify-center items-center gap-10">
-          <img src="./images/1inch.png" alt="ENS" class="h-12">
-          <img src="./images/world.png" alt="Worldcoin" class="h-10">
-          <img src="./images/ens.svg" alt="ENS" class="h-12">
-          <img src="./images/farcaster.svg" alt="Farcaster" class="h-10">
-        </div>
-      </footer>
     </main>
 
     <script>
@@ -211,6 +221,14 @@
           document.getElementById('results-section').classList.remove('hidden');
           document.getElementById('wallet-address-display').textContent = 'Error loading data';
         }
+      });
+
+      document.getElementById('back-button').addEventListener('click', () => {
+        // Hide results and show landing content
+        document.getElementById('results-section').classList.add('hidden');
+        document.getElementById('landing-content').classList.remove('hidden');
+        // Clear the input field
+        document.getElementById('wallet-address').value = '';
       });
 
       function updateResults(data) {
