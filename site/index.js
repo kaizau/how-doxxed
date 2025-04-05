@@ -9,7 +9,29 @@ const DOM = {
   landingContent: document.getElementById("landing-content"),
   loadingScreen: document.getElementById("loading-screen"),
   resultsSection: document.getElementById("results-section"),
+  loadingMessage: document.getElementById("loading-message"),
+  loadingMessages: document.getElementById("loading-messages"),
 };
+
+// Rotate loading messages
+let messageInterval;
+function startLoadingMessages() {
+  const messages = DOM.loadingMessages.textContent
+    .split("\n")
+    .filter((msg) => msg.trim());
+  let currentIndex = 0;
+
+  messageInterval = setInterval(() => {
+    currentIndex = (currentIndex + 1) % messages.length;
+    DOM.loadingMessage.textContent = messages[currentIndex].trim();
+  }, 3000);
+}
+
+function stopLoadingMessages() {
+  if (messageInterval) {
+    clearInterval(messageInterval);
+  }
+}
 
 // Bind events
 DOM.form.addEventListener("submit", (event) => {
@@ -47,6 +69,7 @@ async function beginAudit(address) {
   // Hide landing content and show loading screen
   DOM.landingContent.classList.add("hidden");
   DOM.loadingScreen.classList.remove("hidden");
+  startLoadingMessages();
 
   // Load and render analysis modules
   const browserData = await analyzeBrowser();
@@ -61,6 +84,7 @@ async function beginAudit(address) {
   console.log(addressData);
 
   // Hide loading screen and show results
+  stopLoadingMessages();
   DOM.loadingScreen.classList.add("hidden");
   DOM.resultsSection.classList.remove("hidden");
 

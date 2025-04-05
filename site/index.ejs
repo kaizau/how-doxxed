@@ -102,7 +102,16 @@
       <div id="loading-screen" class="hidden fixed inset-0 bg-gray-200 bg-opacity-90 flex items-center justify-center z-50">
         <div class="text-center">
           <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-black mx-auto mb-4"></div>
-          <p class="font-mono text-lg">Analyzing wallet...</p>
+          <p class="font-mono text-lg" id="loading-message">Analyzing wallet...</p>
+          <div class="hidden" id="loading-messages">
+            Scanning your iris...
+            Placing black hat on...
+            Pinpointing your latitude and longitude...
+            Analyzing transaction patterns...
+            Looking for breadcrumbs...
+            Connecting the dots...
+            Following the money...
+          </div>
         </div>
       </div>
 
@@ -124,7 +133,7 @@
             <img src="./images/icons/wallet.svg" alt="Wallets" class="h-4">
             <h2 class="font-mono text-sm tracking-wider">Wallet</h2>
           </div>
-          <p class="font-mono text-sm text-gray-500 mt-1 break-all" id="wallet-address-resolved"></p>
+          <p class="font-mono text-xs text-gray-500 mt-1 break-all" id="wallet-address-resolved"></p>
         </div>
 
         <!-- Main Content -->
@@ -161,13 +170,14 @@
               <img src="./images/icons/connect.svg" alt="Relationships" class="h-4">
               <h2 class="font-mono text-sm tracking-wider">WALLET RELATIONSHIPS</h2>
             </div>
+            <p class="text-xs">Recent most frequently transacted contracts</h2>
             <div class="font-mono text-xs">
               <div class="space-y-[0.35rem]" id="wallet-relationships">
                 <!-- Relationships will be populated here -->
               </div>
             </div>
 
-            <div class="mt-8 relative h-72" id="bubble-chart">
+            <div class="mt-8 relative h-64" id="bubble-chart">
               <!-- Dynamic bubbles will be populated here -->
             </div>
           </section>
