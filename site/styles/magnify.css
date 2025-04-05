@@ -31,7 +31,7 @@
   font-size: 32px;
   font-weight: bold;
   transform: rotate(var(--rotation));
-  opacity: 0.02;
+  opacity: 0.005;
   color: black;
   transition: all 0.3s ease;
 }
