@@ -1,9 +1,7 @@
 import { Chart } from "chart.js/auto";
 import { TimeScale, TimeSeriesScale } from "chart.js";
 import "chartjs-adapter-date-fns";
-
-// Declare L as global since it's loaded via CDN
-const L = window.L;
+import L from "leaflet";
 
 Chart.register(TimeScale, TimeSeriesScale);
 
@@ -180,7 +178,7 @@ export function updateResults(data) {
         }) => `<div class="flex items-center">
           <span class="text-gray-500 w-8 text-sm">${index + 1}.</span>
           <span class="font-mono text-sm">${abbreviatedAddress}</span>
-          <button 
+          <button
             onclick="copyAddress(event, '${address.replace(/'/g, "\\'")}')"
             class="text-gray-500 hover:text-black transition-colors group relative cursor-pointer ml-2"
             title="Copy full address"
@@ -192,9 +190,9 @@ export function updateResults(data) {
               Copy address
             </span>
           </button>
-          <a 
-            href="https://etherscan.io/address/${address}" 
-            target="_blank" 
+          <a
+            href="https://etherscan.io/address/${address}"
+            target="_blank"
             rel="noopener noreferrer"
             class="text-gray-500 hover:text-black transition-colors ml-2"
           >
@@ -203,8 +201,8 @@ export function updateResults(data) {
               <path d="m25.602 110.51a60.813 60.813 0 0 0 63.371 5.013 60.815 60.815 0 0 0 33.212-54.203c0-1.4-.065-2.785-.158-4.162-22.219 33.138-63.244 48.63-96.423 53.347" fill="#979695"/>
             </svg>
           </a>
-          <a 
-            href="#" 
+          <a
+            href="#"
             onclick="analyzeAddress('${address.replace(/'/g, "\\'")}'); return false;"
             class="text-gray-500 hover:text-black transition-colors ml-2"
           >
@@ -344,7 +342,7 @@ export function updateResults(data) {
     const bubbles = bubbleObjects.map((bubble, i) => {
       const normalizedIndex = i / bubbleObjects.length;
       return `
-          <div 
+          <div
             class="absolute transform -translate-x-1/2 -translate-y-1/2 border border-black rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer hover:border-[3px] hover:shadow-lg group"
             style="
               width: ${bubble.size}px;
@@ -352,7 +350,7 @@ export function updateResults(data) {
               top: ${bubble.y}%;
               left: ${bubble.x}%;
               opacity: ${0.95 - normalizedIndex * 0.3};
-              
+
             "
             onclick="analyzeAddress('${bubble.data.address.replace(/'/g, "\\'")}')"
           >
