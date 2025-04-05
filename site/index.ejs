@@ -1,13 +1,88 @@
 <!doctype html>
-<html>
+<html class="bg-gray-200">
   <head>
     <%- include("/site/_shared/head.ejs", {
-      title: "Hello, Universe!",
-      description: "A humble starter template..."
+      title: "How Doxxed Am I?",
+      description: "Your onchain activity might be exposing more about you than you think."
     }) %>
   </head>
-  </module>
-  <body>
-    <h1 class="p-10 text-3xl text-center">Hello, universe!</h1>
+  <body class="min-h-screen p-4">
+    <!-- Main Content -->
+    <main class="max-w-2xl mx-auto text-center mt-8">
+      <!-- Logo -->
+      <img src="./images/logo.svg" alt="HDAI" class="h-32 mx-auto mb-8">
+
+      <!-- Title -->
+      <h1 class="text-4xl font-mono mb-6">HOW DOXXED AM I?</h1>
+      
+      <!-- Subtitle -->
+      <p class="text-xl mb-12 max-w-lg mx-auto px-4">
+        Your onchain activity might be exposing more about you that you think.
+      </p>
+
+      <!-- Feature Grid -->
+      <div class="grid grid-cols-3 gap-8 mb-8">
+        <!-- Location -->
+        <div class="flex flex-col items-center">
+          <img src="./images/icons/globe.svg" alt="Location" class="h-8">
+          <span class="text-lg">Location</span>
+        </div>
+
+        <!-- Relationships -->
+        <div class="flex flex-col items-center">
+          <img src="./images/icons/connect.svg" alt="Relationships" class="h-8">
+          <span class="text-lg">Relationships</span>
+        </div>
+
+        <!-- Assets -->
+        <div class="flex flex-col items-center">
+          <img src="./images/icons/dollar.svg" alt="Assets" class="h-8">
+          <span class="text-lg">Assets</span>
+        </div>
+      </div>
+
+      <!-- Second Row Grid -->
+      <div class="grid grid-cols-2 mb-16">
+        <!-- Names & Pseudonyms -->
+        <div class="flex flex-col items-center">
+          <img src="./images/ens.svg" alt="Names" class="h-8">
+          <span class="text-base">Names &<br/>Pseudonyms</span>
+        </div>
+
+        <!-- Connected Wallets -->
+        <div class="flex flex-col items-center">
+          <img src="./images/icons/wallet.svg" alt="Wallet" class="h-8">
+          <span class="text-base">Connected<br/>Wallets</span>
+        </div>
+      </div>
+
+      <!-- Search Section -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold mb-4">Audit Your Wallet Privacy</h2>
+        <div class="relative max-w-xl mx-auto">
+          <input 
+            type="text" 
+            placeholder="Wallet Address or ENS" 
+            class="w-full px-6 py-4 text-xl border-2 border-black rounded-lg shadow-lg pl-6 pr-16"
+          >
+          <button class="absolute right-4 top-1/2 transform -translate-y-1/2">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Powered By Section -->
+      <footer>
+        <p class="text-sm mb-4 font-mono">POWERED BY</p>
+        <div class="flex justify-center items-center gap-10">
+          <img src="./images/1inch.png" alt="ENS" class="h-12">
+          <img src="./images/world.png" alt="Worldcoin" class="h-10">
+          <img src="./images/ens.svg" alt="ENS" class="h-12">
+          <img src="./images/farcaster.svg" alt="Farcaster" class="h-10">
+        </div>
+      </footer>
+    </main>
   </body>
 </html>
