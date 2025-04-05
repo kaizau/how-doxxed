@@ -72,22 +72,40 @@ export function updateResults(data) {
 
   // Update ENS names
   const ensContainer = document.getElementById("ens-names");
+  const ensHtml = [];
+
+  // Add ENS names from API
+  if (data.ensNames && data.ensNames.length > 0) {
+    ensHtml.push(
+      ...data.ensNames.map(
+        (name) =>
+          `<div class="flex items-center gap-2">
+            <a href="https://app.ens.domains/name/${name}" target="_blank" rel="noopener noreferrer" class="text-black hover:opacity-70 transition-opacity">${name}</a>
+          </div>`,
+      ),
+    );
+  }
+
+  // Add ENS NFTs
   if (data.nfts) {
     const ensNFTs = data.nfts.filter((nft) => nft.collectionName === "ENS");
     if (ensNFTs.length > 0) {
-      ensContainer.innerHTML = ensNFTs
-        .map(
+      ensHtml.push(
+        ...ensNFTs.map(
           (nft) =>
             `<div class="flex items-center gap-2">
-            <img src="./images/ens.svg" alt="ENS" class="h-4 w-4">
-            <span>${nft.name}</span>
-          </div>`,
-        )
-        .join("");
-    } else {
-      ensContainer.innerHTML =
-        '<p class="text-gray-500">No ENS names found</p>';
+              <a href="https://app.ens.domains/name/${nft.name}" target="_blank" rel="noopener noreferrer" class="text-black hover:opacity-70 transition-opacity">${nft.name}</a>
+            </div>`,
+        ),
+      );
     }
+  }
+
+  // Update the container
+  if (ensHtml.length > 0) {
+    ensContainer.innerHTML = ensHtml.join("");
+  } else {
+    ensContainer.innerHTML = '<p class="text-gray-500">No ENS names found</p>';
   }
 
   // Update wallet relationships and bubble chart
