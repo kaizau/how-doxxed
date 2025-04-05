@@ -11,6 +11,9 @@ importers:
       ejs:
         specifier: ^3.1.10
         version: 3.1.10
+      thumbmarkjs:
+        specifier: ^0.15.0
+        version: 0.15.0
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.3.1
@@ -1890,6 +1893,10 @@ packages:
   term-size@2.2.1:
     resolution: {integrity: sha512-wK0Ri4fOGjv/XPy8SBHZChl8CM7uMc5VML7SqiQ0zG7+J5Vr+RMQDoHa2CNT6KHUnTGIXH34UDMkPzAUyapBZg==}
     engines: {node: '>=8'}
+
+  thumbmarkjs@0.15.0:
+    resolution: {integrity: sha512-0hu8sT9oCXH8jEtyGzUYVtjHiDaIQhmZ5+UD+gHWHv0ZEVtre0LAQCzX6cKEhOyai8eKi/yifZ2BMXkSEWl0Tw==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   timsort@0.3.0:
     resolution: {integrity: sha512-qsdtZH+vMoCARQtyod4imc2nIJwg9Cc7lPRrw9CzF8ZKR0khdr8+2nX80PBhET3tcyTtJDxAffGh2rXH4tyU8A==}
@@ -4195,6 +4202,8 @@ snapshots:
   tapable@2.2.1: {}
 
   term-size@2.2.1: {}
+
+  thumbmarkjs@0.15.0: {}
 
   timsort@0.3.0: {}
 
