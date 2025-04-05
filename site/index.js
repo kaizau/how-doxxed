@@ -39,6 +39,8 @@ async function beginAudit(address) {
   const locationData = await analyzeLocation();
   console.log(locationData);
 
+  // TODO Maybe pause for login here
+
   const addressData = await analyzeAddress(address);
   console.log(addressData);
 
