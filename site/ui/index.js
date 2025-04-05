@@ -1,9 +1,6 @@
 import { Chart } from "chart.js/auto";
-import { TimeScale, TimeSeriesScale } from "chart.js";
 import "chartjs-adapter-date-fns";
 import L from "leaflet";
-
-Chart.register(TimeScale, TimeSeriesScale);
 
 let portfolioChart = null;
 let map = null;
