@@ -1,6 +1,6 @@
-import { oneInchAPI } from "./1inch.js";
-import { ensToAddress } from "./alchemy.js";
-import { analyzeTimezone, analyzeRelationships } from "./analyze.js";
+import { oneInchAPI } from "./audit/1inch.js";
+import { ensToAddress } from "./audit/alchemy.js";
+import { analyzeTimezone, analyzeRelationships } from "./audit/analyze.js";
 
 export default async function handler(request, response) {
   // let address = "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5";

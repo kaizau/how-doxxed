@@ -4,6 +4,11 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "api/*.js": {
+      "maxDuration": 30
+    }
+  },
   "rewrites": [
     { "source": "/", "destination": "/site/index.ejs" },
     { "source": "/results", "destination": "/api/results" }
