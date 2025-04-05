@@ -429,18 +429,20 @@ export function updateResults(data) {
         if (!map && mapContainer && mapContainer.offsetParent !== null) {
           map = L.map("location-map").setView(
             [locationData.latitude, locationData.longitude],
-            13,
+            11,
           );
           L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution:
               '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           }).addTo(map);
 
-          // Add marker
-          marker = L.marker([
-            locationData.latitude,
-            locationData.longitude,
-          ]).addTo(map);
+          // Add circle instead of marker
+          marker = L.circle([locationData.latitude, locationData.longitude], {
+            color: "black",
+            fillColor: "#000",
+            fillOpacity: 0.2,
+            radius: 5000,
+          }).addTo(map);
         } else if (map && marker) {
           // Update existing map
           map.setView([locationData.latitude, locationData.longitude], 13);
