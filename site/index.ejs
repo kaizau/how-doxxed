@@ -16,7 +16,7 @@
 
         <!-- Title -->
         <h1 class="text-4xl font-mono mb-6">HOW DOXXED AM I?</h1>
-        
+
         <!-- Subtitle -->
         <p class="text-xl mb-12 max-w-lg mx-auto px-4">
           Your onchain activity might be exposing more about you that you think.
@@ -62,11 +62,11 @@
         <section class="mb-12" id="search-section">
           <h2 class="text-3xl font-bold mb-4">Audit Your Wallet Privacy</h2>
           <form id="search-form" class="relative max-w-xl mx-auto">
-            <input 
-              type="text" 
+            <input
+              type="text"
               name="address"
               id="address"
-              placeholder="Wallet Address or ENS" 
+              placeholder="Wallet Address or ENS"
               class="w-full px-6 py-4 text-xl border-2 border-black rounded-lg shadow-lg pl-6 pr-16"
               required
             >
@@ -169,68 +169,5 @@
         </div>
       </footer>
     </main>
-
-    <script>
-      document.getElementById('search-form').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        
-        const address = document.getElementById('address').value.trim();
-        if (!address) return;
-
-        // Hide landing content and show results
-        document.getElementById('landing-content').classList.add('hidden');
-        document.getElementById('results-section').classList.remove('hidden');
-        document.getElementById('wallet-address').textContent = address;
-
-        try {
-          const response = await fetch(`/api/audit?address=${encodeURIComponent(address)}`);
-          const data = await response.json();
-
-          // Update the UI with the data
-          updateResults(data);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-          // Show error state
-        }
-      });
-
-      function updateResults(data) {
-        // Update ENS names
-        const ensNamesContainer = document.getElementById('ens-names');
-        if (data.ensNames) {
-          ensNamesContainer.innerHTML = data.ensNames.map(name => `
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-purple-500"></span>
-              <span>${name}</span>
-            </div>
-          `).join('');
-        }
-
-        // Update wallet relationships
-        const relationshipsContainer = document.getElementById('wallet-relationships');
-        if (data.relationships) {
-          relationshipsContainer.innerHTML = data.relationships.map((rel, index) => `
-            <p>${index + 1}. ${rel.address} ($${rel.amount}K, ${rel.txCount} TXNS)</p>
-          `).join('');
-        }
-
-        // Update timezone data
-        const timezoneContainer = document.getElementById('timezone-data');
-        if (data.timezone) {
-          timezoneContainer.innerHTML = Object.entries(data.timezone).map(([hour, count]) => `
-            <div class="flex items-center gap-3">
-              <span class="text-xs font-mono w-12">${hour}:00</span>
-              <div class="h-4 bg-black rounded-sm" style="width: ${count}%"></div>
-            </div>
-          `).join('');
-        }
-
-        // Update location text
-        const locationText = document.getElementById('location-text');
-        if (data.location) {
-          locationText.textContent = `FARCASTER LOCATION: ${data.location}`;
-        }
-      }
-    </script>
   </body>
 </html>

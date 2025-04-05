@@ -6,9 +6,9 @@ export default async function handler(request, response) {
   // let address = "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5";
   // let address = "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97";
   // let address = "0x2BbC6AA68516f03DC5B7DA77809Ba63d6587a0cd";
-  let address = "zeni.eth";
+  // let address = "zeni.eth";
 
-  // let address = request.query.address;
+  let address = request.query.address;
   if (address.includes(".")) {
     try {
       address = await ensToAddress(address);

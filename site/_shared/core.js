@@ -1,5 +1,20 @@
-fetch("/api/audit")
-  .then((res) => res.json())
-  .then((json) => console.log("GET /api/audit:", json))
-  .catch(() => console.log("GET /api/audit: (api not available)"));
-/* eslint-enable no-console */
+document
+  .getElementById("search-form")
+  .addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const address = document.getElementById("address").value.trim();
+    if (!address) return;
+
+    console.log("Loading...");
+
+    try {
+      const response = await fetch(
+        `/api/audit?address=${encodeURIComponent(address)}`,
+      );
+      const data = await response.json();
+      console.log("API Response:", data); // This line could be added for logging
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  });
