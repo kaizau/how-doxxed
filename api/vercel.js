@@ -3,23 +3,21 @@ export default async function handler(request, response) {
   const wallet = "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5";
 
   const requestValue = getWalletValue(wallet, 1);
-  const requestBalances = getWalletBalances(wallet, 1);
   const requestNFTs = getWalletNFTs(wallet, 1);
   const requestHistory = getWalletHistory(wallet, 1);
 
-  const [value, balances, nfts, history] = await Promise.all([
+  const [value, nfts, history] = await Promise.all([
     requestValue,
-    requestBalances,
     requestNFTs,
     requestHistory,
   ]);
 
-  return response.status(200).json({ value, balances, nfts, history });
+  return response.status(200).json({ value, nfts, history });
 }
 
-// Returns 1 year of value history
+// Returns 1 year of value history (supposedly across all tracked chains)
 // [ { timestamp: 1712275200, value_usd: 0 }, ... ]
-async function getWalletValue(address, chainId) {
+async function getWalletValue(address) {
   const base =
     "https://api.1inch.dev/portfolio/portfolio/v4/general/value_chart";
   const url = `${base}?addresses=${address}&use_cache=true`;
@@ -58,9 +56,10 @@ async function getWalletBalances(address, chainId) {
 }
 
 // Get NFTs owned by the wallet
-async function getWalletNFTs(address, chainId) {
+async function getWalletNFTs(address) {
   const base = "https://api.1inch.dev/nft/v2/byaddress";
-  const url = `${base}?chainIds=${chainId}&address=${address}`;
+  const chainIds = [1, 137, 42161, 43114, 100, 8217, 10, 8453];
+  const url = `${base}?chainIds=${chainIds.join(",")}&address=${address}`;
   try {
     const response = await fetch(url, {
       headers: {
