@@ -1,7 +1,15 @@
+## Finish Line 🏁
+
+- [ ] Finish application
+- [ ] UI for browser fingerprinting (table of interesting data)
+- [ ] UI for location data as a map
+- [ ] UI polish
+  - [ ] Mobile width
+
 ## Client UI
 
 - [x] Enter your wallet address
-- [ ] "What your browser tells us"
+- [x] "What your browser tells us"
   - Show first while blockchain data is loading
   - Browser fingerprinting
 - [ ] "What your wallet tells us"
