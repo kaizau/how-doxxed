@@ -13,10 +13,8 @@ let marker = null;
 
 export function updateResults(data) {
   // Show resolved address if available
-  if (data.address) {
-    document.getElementById("wallet-address-resolved").textContent =
-      data.address;
-  }
+  document.getElementById("wallet-address-resolved").textContent =
+    data.address || "";
 
   // Update portfolio value and chart
   if (data.value && Array.isArray(data.value)) {
