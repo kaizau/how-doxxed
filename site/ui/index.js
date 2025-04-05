@@ -1,3 +1,11 @@
+import { Chart } from "chart.js/auto";
+import { TimeScale, TimeSeriesScale } from "chart.js";
+import "chartjs-adapter-date-fns";
+
+Chart.register(TimeScale, TimeSeriesScale);
+
+let portfolioChart = null;
+
 export function updateResults(data) {
   // Show resolved address if available
   if (data.address) {
@@ -6,24 +14,30 @@ export function updateResults(data) {
   }
 
   // Update portfolio value and chart
-  if (data.value && data.value.points && data.value.points.length >= 2) {
-    const latestValue = data.value.points[data.value.points.length - 1];
-    const previousValue = data.value.points[data.value.points.length - 2];
+  if (data.value) {
+    const timestamps = [];
+    const values = [];
 
-    if (
-      latestValue &&
-      previousValue &&
-      latestValue.value &&
-      previousValue.value
-    ) {
+    // Process historical data
+    for (let i = 0; i < data.value.length; i++) {
+      const point = data.value[i];
+      timestamps.push(new Date(point.timestamp * 1000));
+      values.push(point.value_usd);
+    }
+
+    // Get latest and previous values for percent change
+    const latestValue = values[values.length - 1];
+    const previousValue = values[values.length - 2];
+
+    if (latestValue && previousValue) {
       const percentChange =
-        ((latestValue.value - previousValue.value) / previousValue.value) * 100;
+        ((latestValue - previousValue) / previousValue) * 100;
 
       // Format the value with commas and 2 decimal places
       const formattedValue = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
-      }).format(latestValue.value);
+      }).format(latestValue);
 
       // Update the portfolio value display
       document.querySelector(".text-4xl.font-mono").textContent =
@@ -35,34 +49,60 @@ export function updateResults(data) {
       percentElement.className = `font-mono ${percentChange >= 0 ? "text-green-500" : "text-red-500"}`;
 
       // Update the chart
-      const svg = document.querySelector("svg.stroke-red-500");
-      const path = svg.querySelector("path");
+      const ctx = document.getElementById("portfolio-chart");
 
-      // Normalize the points to fit in the SVG viewBox
-      const points = data.value.points.map((point, i) => ({
-        x: (i / (data.value.points.length - 1)) * 100,
-        y:
-          30 -
-          ((point.value - Math.min(...data.value.points.map((p) => p.value))) /
-            (Math.max(...data.value.points.map((p) => p.value)) -
-              Math.min(...data.value.points.map((p) => p.value)))) *
-            25,
-      }));
+      if (portfolioChart) {
+        portfolioChart.destroy();
+      }
 
-      // Create the SVG path
-      const pathD = points.reduce(
-        (acc, point, i) =>
-          acc +
-          (i === 0 ? `M ${point.x},${point.y}` : ` L ${point.x},${point.y}`),
-        "",
-      );
-
-      path.setAttribute("d", pathD);
-      svg.className = `w-full h-full stroke-${percentChange >= 0 ? "green" : "red"}-500 stroke-[0.5] fill-none opacity-80`;
-    } else {
-      // Handle invalid value data
-      document.querySelector(".text-4xl.font-mono").textContent = "$0.00";
-      document.querySelector(".text-red-500.font-mono").textContent = "+0.00%";
+      portfolioChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: timestamps,
+          datasets: [
+            {
+              data: values,
+              borderColor: percentChange >= 0 ? "#22C55E" : "#EF4444",
+              borderWidth: 1.5,
+              fill: false,
+              tension: 0.4,
+              pointRadius: 0,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  return new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(context.parsed.y);
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              type: "time",
+              display: false,
+            },
+            y: {
+              display: false,
+            },
+          },
+          interaction: {
+            intersect: false,
+            mode: "index",
+          },
+        },
+      });
     }
   } else {
     // Handle missing value data
