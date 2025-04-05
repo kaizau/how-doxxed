@@ -85,6 +85,7 @@ class OneInchAPI {
       "/portfolio/portfolio/v4/general/value_chart",
       {
         addresses: Array.isArray(addresses) ? addresses.join(",") : addresses,
+        timerange: "1month",
         use_cache: "true",
       },
     );
@@ -110,6 +111,7 @@ class OneInchAPI {
     address,
     // chainIds = [1, 137, 42161, 43114, 100, 8217, 10, 8453],
     // TODO: Remove this for production
+    // TODO: Increase limit
     chainIds = [1, 8453],
     limit = 100,
   ) {
@@ -124,7 +126,7 @@ class OneInchAPI {
             limit,
           },
         );
-
+        console.log(`[1inch] History: ${history.items.length}`);
         if (history && history.items && history.items.length > 0) {
           results.push({
             chainId,

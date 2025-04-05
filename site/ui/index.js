@@ -14,34 +14,36 @@ export function updateResults(data) {
   }
 
   // Update portfolio value and chart
-  if (data.value) {
+  if (data.value && Array.isArray(data.value)) {
     const timestamps = [];
     const values = [];
 
     // Process historical data
-    for (let i = 0; i < data.value.length; i++) {
-      const point = data.value[i];
+    data.value.forEach((point) => {
       timestamps.push(new Date(point.timestamp * 1000));
       values.push(point.value_usd);
-    }
+    });
 
-    // Get latest and previous values for percent change
-    const latestValue = values[values.length - 1];
-    const previousValue = values[values.length - 2];
+    // Get latest value directly from data array
+    const latestPoint = data.value[data.value.length - 1];
+    const previousPoint = data.value[data.value.length - 2];
 
-    if (latestValue && previousValue) {
+    if (latestPoint && previousPoint) {
       const percentChange =
-        ((latestValue - previousValue) / previousValue) * 100;
+        ((latestPoint.value_usd - previousPoint.value_usd) /
+          previousPoint.value_usd) *
+        100;
 
       // Format the value with commas and 2 decimal places
       const formattedValue = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
-      }).format(latestValue);
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }).format(latestPoint.value_usd);
 
       // Update the portfolio value display
-      document.querySelector(".text-4xl.font-mono").textContent =
-        formattedValue;
+      document.getElementById("portfolio-value").textContent = formattedValue;
 
       // Update the percent change
       const percentElement = document.querySelector(".text-red-500.font-mono");
