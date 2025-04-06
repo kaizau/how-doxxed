@@ -69,15 +69,15 @@ async function beginAudit(address) {
 
   // Load and render analysis modules
   const browserData = await analyzeBrowser();
-  console.log(browserData);
+  // console.log(browserData);
 
   const locationData = await analyzeLocation();
-  console.log(locationData);
+  // console.log(locationData);
 
   // TODO Maybe pause for login here
 
   const addressData = await analyzeAddress(address);
-  console.log(addressData);
+  // console.log(addressData);
 
   // Hide loading screen and show results
   stopLoadingMessages();
