@@ -198,8 +198,8 @@ export function updateResults(data) {
             </svg>
           </a>
           <a
-            href="#"
-            onclick="analyzeAddress('${address.replace(/'/g, "\\'")}'); return false;"
+            href="?address=${encodeURIComponent(address)}"
+            target="_blank"
             class="text-gray-500 hover:text-black transition-colors ml-2"
           >
             <svg class="h-4 w-4" viewBox="0 0 95 95" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -338,7 +338,9 @@ export function updateResults(data) {
     const bubbles = bubbleObjects.map((bubble, i) => {
       const normalizedIndex = i / bubbleObjects.length;
       return `
-          <div
+          <a
+            href="?address=${encodeURIComponent(bubble.data.address)}"
+            target="_blank"
             class="absolute transform -translate-x-1/2 -translate-y-1/2 border border-black rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer hover:border-[3px] hover:shadow-lg group"
             style="
               width: ${bubble.size}px;
@@ -346,9 +348,7 @@ export function updateResults(data) {
               top: ${bubble.y}%;
               left: ${bubble.x}%;
               opacity: ${0.95 - normalizedIndex * 0.3};
-
             "
-            onclick="analyzeAddress('${bubble.data.address.replace(/'/g, "\\'")}')"
           >
             <span class="font-mono text-[8px] text-center">
               ${bubble.data.address.slice(0, 6)}
@@ -524,7 +524,7 @@ export function updateResults(data) {
 }
 
 // Add copy function to handle clipboard operations
-export function copyAddress(event, address) {
+window.copyAddress = function (event, address) {
   // Get the button element (parent of SVG if clicked on SVG)
   const button = event.target.closest("button");
   if (!button) return;
@@ -547,25 +547,4 @@ export function copyAddress(event, address) {
     .catch((err) => {
       console.error("Failed to copy address:", err);
     });
-}
-
-// Add function to analyze address
-export function analyzeAddress(address) {
-  // Hide landing content and show loading screen
-  document.getElementById("landing-content").classList.add("hidden");
-  document.getElementById("loading-screen").classList.remove("hidden");
-
-  // Trigger the API call
-  fetch(`/api/audit?address=${encodeURIComponent(address)}`)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("[DEBUG] API Response:", data);
-      const resultsEvent = new CustomEvent("auditResults", { detail: data });
-      document.dispatchEvent(resultsEvent);
-    })
-    .catch((error) => {
-      console.error("[DEBUG] Error:", error);
-      const errorEvent = new CustomEvent("auditError", { detail: error });
-      document.dispatchEvent(errorEvent);
-    });
-}
+};

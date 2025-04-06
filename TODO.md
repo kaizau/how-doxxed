@@ -9,6 +9,7 @@
 ## Post Hackathon
 
 - [ ] Update README
+- [ ] Favicon
 - [ ] Update API keys, rate limits, etc.
 - [ ] Add "Learn more" and "What to do about it"
 - [ ] Disable all Vercel logging
