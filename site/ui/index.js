@@ -385,7 +385,7 @@ export function updateResults(data) {
         endHour,
         transactions,
       };
-    });
+    }).sort((a, b) => a.startHour - b.startHour);
 
     const maxTransactions = Math.max(...blocks.map((b) => b.transactions));
 
