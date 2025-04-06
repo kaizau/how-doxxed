@@ -120,7 +120,7 @@ export function updateResults(data) {
       ...data.ensNames.map(
         (name) =>
           `<div class="flex items-center gap-2">
-            <a href="https://app.ens.domains/name/${name}" target="_blank" rel="noopener noreferrer" class="text-black hover:opacity-70 transition-opacity">${name}</a>
+            <a href="https://app.ens.domains/name/${name}" target="_blank" rel="noopener noreferrer" class="bg-gray-100 rounded-full px-3 py-1 text-black hover:opacity-70 transition-opacity">${name}</a>
           </div>`,
       ),
     );
@@ -134,7 +134,7 @@ export function updateResults(data) {
         ...ensNFTs.map(
           (nft) =>
             `<div class="flex items-center gap-2">
-              <a href="https://app.ens.domains/name/${nft.name}" target="_blank" rel="noopener noreferrer" class="text-black hover:opacity-70 transition-opacity">${nft.name}</a>
+              <a href="https://app.ens.domains/name/${nft.name}" target="_blank" rel="noopener noreferrer" class="bg-gray-100 rounded-full px-3 py-1 text-black hover:opacity-70 transition-opacity">${nft.name}</a>
             </div>`,
         ),
       );
@@ -173,8 +173,7 @@ export function updateResults(data) {
           txns,
           index,
         }) => `<div class="flex items-center">
-          <span class="text-gray-500 w-8 text-sm">${index + 1}.</span>
-          <span class="font-mono text-sm">${abbreviatedAddress}</span>
+          <span class="font-mono text-sm flex-1">${abbreviatedAddress}</span>
           <button
             onclick="copyAddress(event, '${address.replace(/'/g, "\\'")}')"
             class="text-gray-500 hover:text-black transition-colors group relative cursor-pointer ml-2"
@@ -367,13 +366,19 @@ export function updateResults(data) {
   // Update timezone data
   const timezoneContainer = document.getElementById("timezone-data");
   if (data.timezone) {
-    // Group transactions into 4-hour blocks
-    const blocks = Array.from({ length: 6 }, (_, i) => {
-      const startHour = i * 4;
-      const endHour = startHour + 3;
-      const hours = Array.from({ length: 4 }, (_, h) => startHour + h);
+    // Group transactions into 2-hour blocks
+    const blocks = Array.from({ length: 12 }, (_, i) => {
+      const startHour = i * 2;
+      const endHour = startHour + 1;
+      const hours = Array.from({ length: 2 }, (_, h) => startHour + h);
       const transactions = hours.reduce((sum, hour) => {
-        return sum + (data.timezone[hour] ? data.timezone[hour].length : 0);
+        return (
+          sum +
+          (data.timezone[hour]
+            ? data.timezone[hour].filter((txn) => txn.direction === "out")
+                .length
+            : 0)
+        );
       }, 0);
       return {
         startHour,

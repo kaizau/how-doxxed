@@ -10,9 +10,14 @@
 
 - [ ] Update README
 - [ ] Update API keys, rate limits, etc.
+- [ ] Add "Learn more" and "What to do about it"
 - [ ] Disable all Vercel logging
 - [ ] More modular implementation
-- [ ] List future ideas
+
+## Future
+
+- [ ] Detect available wallets
+- [ ] Scan social accounts (Farcaster, Gitcoin, etc.)
 
 ---
 

@@ -9,11 +9,11 @@
   </head>
   <body class="min-h-screen p-4">
     <!-- Main Content -->
-    <main class="max-w-2xl mx-auto mt-4">
+    <main class="w-full max-w-xl mx-auto mt-4">
       <!-- Landing Page Content -->
       <div id="landing-content" class="text-center">
         <!-- Logo -->
-        <img src="./images/doxxie.png" alt="HDAI" class="h-28 mx-auto mb-4">
+        <img src="./images/doxxie.png" alt="How Doxxed Am I? Logo" class="h-28 mx-auto mb-4">
 
         <!-- Title -->
         <h1 class="text-4xl font-mono mb-6 text-center">HOW DOXXED AM I?</h1>
@@ -48,44 +48,46 @@
         </section>
 
         <!-- Feature Grid -->
-         <section>
+        <section class="max-w-md mx-auto">
           <p class="text-base px-4 mt-4 mb-10 text-center max-w-md mx-auto text-gray-500">
             See what an attacker can learn about you from 100% public information.
           </p>
+
           <div class="grid grid-cols-3 gap-8 mb-4">
             <!-- Location -->
             <div class="flex flex-col items-center">
-            <img src="./images/icons/globe.svg" alt="Location" class="h-8">
-            <span class="text-lg">Location</span>
+              <img src="./images/icons/globe.svg" alt="Location" class="h-8">
+              <span class="text-lg">Location</span>
+            </div>
+
+            <!-- Relationships -->
+            <div class="flex flex-col items-center">
+              <img src="./images/icons/connect.svg" alt="Relationships" class="h-8">
+              <span class="text-lg">Relationships</span>
+            </div>
+
+            <!-- Assets -->
+            <div class="flex flex-col items-center">
+              <img src="./images/icons/dollar.svg" alt="Assets" class="h-8">
+              <span class="text-lg">Assets</span>
+            </div>
           </div>
 
-          <!-- Relationships -->
-          <div class="flex flex-col items-center">
-            <img src="./images/icons/connect.svg" alt="Relationships" class="h-8">
-            <span class="text-lg">Relationships</span>
-          </div>
+          <!-- Second Row Grid -->
+          <div class="grid grid-cols-2 mb-12">
+            <!-- Names & Pseudonyms -->
+            <div class="flex flex-col items-center">
+              <img src="./images/ens.svg" alt="Names" class="h-8">
+              <span class="text-base">Names &<br/>Pseudonyms</span>
+            </div>
 
-          <!-- Assets -->
-          <div class="flex flex-col items-center">
-            <img src="./images/icons/dollar.svg" alt="Assets" class="h-8">
-            <span class="text-lg">Assets</span>
+            <!-- Connected Wallets -->
+            <div class="flex flex-col items-center">
+              <img src="./images/icons/wallet.svg" alt="Wallet" class="h-8">
+              <span class="text-base">Connected<br/>Wallets</span>
+            </div>
           </div>
-        </div>
-
-        <!-- Second Row Grid -->
-        <div class="grid grid-cols-2 mb-12">
-          <!-- Names & Pseudonyms -->
-          <div class="flex flex-col items-center">
-            <img src="./images/ens.svg" alt="Names" class="h-8">
-            <span class="text-base">Names &<br/>Pseudonyms</span>
-          </div>
-
-          <!-- Connected Wallets -->
-          <div class="flex flex-col items-center">
-            <img src="./images/icons/wallet.svg" alt="Wallet" class="h-8">
-            <span class="text-base">Connected<br/>Wallets</span>
-          </div>
-        </div>
+        </section>
 
 
         <!-- Powered By Section -->
@@ -123,7 +125,7 @@
       <!-- Results Section (Hidden by default) -->
       <section id="results-section" class="hidden">
         <!-- Back Button -->
-        <div class="max-w-xl mx-auto mb-8">
+        <div class="mx-auto mb-8">
           <button id="back-button" class="flex items-center gap-2 text-sm font-mono hover:opacity-70 transition-opacity">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/>
@@ -133,7 +135,7 @@
         </div>
 
         <!-- Wallet Address -->
-        <div class="max-w-xl mx-auto mb-12">
+        <div class="mx-auto mb-12">
           <div class="flex items-center gap-2">
             <img src="./images/icons/wallet.svg" alt="Wallets" class="h-4">
             <h2 class="font-mono text-sm tracking-wider">Wallet</h2>
@@ -142,16 +144,16 @@
         </div>
 
         <!-- Main Content -->
-        <div class="max-w-xl mx-auto space-y-12">
+        <div class="mx-auto space-y-12">
           <!-- Portfolio Section -->
           <section>
             <div class="flex items-center gap-2 mb-2">
               <img src="./images/icons/dollar.svg" alt="Portfolio" class="h-4">
-              <h2 class="font-mono text-sm tracking-wider">PORTFOLIO</h2>
+              <h2 class="font-mono text-sm tracking-wider"><strike class="mr-2 text-gray-500">Portfolio</strike>PRIZE MONEY?</h2>
             </div>
             <div class="flex items-baseline gap-3 mb-4">
-              <span class="text-4xl font-mono font-bold tracking-wider" id="portfolio-value">$7,164.51</span>
-              <span class="text-red-500 font-mono">-5.53%</span>
+              <span class="text-4xl font-mono font-bold tracking-wider" id="portfolio-value">$...</span>
+              <span class="text-red-500 font-mono">-...</span>
             </div>
             <div class="h-24 w-full">
               <canvas id="portfolio-chart"></canvas>
@@ -162,9 +164,9 @@
           <section>
             <div class="flex items-center gap-2 mb-4">
               <img src="./images/ens.svg" alt="ENS" class="h-4">
-              <h2 class="font-mono text-sm tracking-wider">ENS</h2>
+              <h2 class="font-mono text-sm tracking-wider"><strike class="mr-4 text-gray-500">ENS</strike>SOCIAL ACCOUNTS?</h2>
             </div>
-            <div class="space-y-2 font-mono text-sm" id="ens-names">
+            <div class="font-mono text-sm flex flex-wrap gap-4" id="ens-names">
               <!-- ENS names will be populated here -->
             </div>
           </section>
@@ -173,17 +175,18 @@
           <section>
             <div class="flex items-center gap-2 mb-4">
               <img src="./images/icons/connect.svg" alt="Relationships" class="h-4">
-              <h2 class="font-mono text-sm tracking-wider">WALLET RELATIONSHIPS</h2>
+              <h2 class="font-mono text-sm tracking-wider"><strike class="mr-4 text-gray-500">Transactions</strike>RELATED ADDRESSES?</h2>
             </div>
-            <p class="text-xs">Recent most frequently transacted contracts</h2>
-            <div class="font-mono text-xs">
-              <div class="space-y-[0.35rem]" id="wallet-relationships">
-                <!-- Relationships will be populated here -->
+            <h3 class="font-mono text-xs text-gray-500 mb-3">FREQUENTLY TRANSACTED ADDRESSES</h3>
+            <div class="flex flex-col md:flex-row md:items-center">
+              <div class="font-mono text-xs max-w-xs md:flex-1">
+                <div id="wallet-relationships">
+                  <!-- Relationships will be populated here -->
+                </div>
               </div>
-            </div>
-
-            <div class="mt-8 relative h-64" id="bubble-chart">
-              <!-- Dynamic bubbles will be populated here -->
+              <div class="mt-4 relative min-h-48 max-w-sm md:flex-1 md:mt-0" id="bubble-chart">
+                <!-- Dynamic bubbles will be populated here -->
+              </div>
             </div>
           </section>
 
@@ -191,23 +194,29 @@
           <section>
             <div class="flex items-center gap-2 mb-4">
               <img src="./images/icons/globe.svg" alt="Location" class="h-4">
-              <h2 class="font-mono text-sm tracking-wider">LOCATION</h2>
+              <h2 class="font-mono text-sm tracking-wider"><strike class="mr-4 text-gray-500">Txn Timing</strike>SLEEP HABITS?</h2>
             </div>
-            <h3 class="font-mono text-xs text-gray-500 mb-3">TRANSACTIONS BY TIME OF DAY (UTC)</h3>
+            <h3 class="font-mono text-xs text-gray-500 mb-3">OUTGOING TRANSACTIONS BY TIME (UTC)</h3>
             <div class="space-y-2 mb-6" id="timezone-data">
               <!-- Timezone data will be populated here -->
             </div>
-            <!-- <p class="font-mono text-xs" id="location-text">FARCASTER LOCATION: OKINAWA, JAPAN</p> -->
+          </section>
+
+          <!-- IP Address -->
+          <section>
+            <div class="flex items-center gap-2 mb-4">
+              <img src="./images/icons/fingerprint.svg" alt="Browser" class="h-4">
+              <h2 class="font-mono text-sm tracking-wider"><strike class="mr-4 text-gray-500">IP Address</strike>LOCATION?</h2>
+            </div>
+            <div id="location-map" class="mt-4 h-48 w-full rounded-lg border border-black"></div>
           </section>
 
           <!-- Browser Fingerprint -->
           <section>
-
             <div class="flex items-center gap-2 mb-4">
               <img src="./images/icons/fingerprint.svg" alt="Browser" class="h-4">
-              <h2 class="font-mono text-sm tracking-wider">BROWSER FINGERPRINT</h2>
+              <h2 class="font-mono text-sm tracking-wider"><strike class="mr-4 text-gray-500">Web2 Browser</strike>ATTACK VECTORS?</h2>
             </div>
-            <div id="location-map" class="mt-4 h-48 w-full rounded-lg border border-black"></div>
             <div class="space-y-2" id="browser-fingerprint">
               <!-- Browser fingerprint data will be populated here -->
             </div>
