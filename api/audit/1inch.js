@@ -1,8 +1,10 @@
+const REQUESTS_PER_SECOND = 1;
+const RATE_LIMIT_BUFFER_MS = 100;
+
 class RateLimiter {
-  constructor(requestsPerSecond) {
+  constructor() {
     this.queue = [];
     this.processing = false;
-    this.requestsPerSecond = requestsPerSecond;
     this.lastRequestTime = 0;
   }
 
@@ -21,12 +23,12 @@ class RateLimiter {
     while (this.queue.length > 0) {
       const now = Date.now();
       const timeSinceLastRequest = now - this.lastRequestTime;
-      const minTimeBetweenRequests = 1000 / this.requestsPerSecond;
+      const minTimeBetweenRequests = 1000 / REQUESTS_PER_SECOND;
 
       if (timeSinceLastRequest < minTimeBetweenRequests) {
-        await new Promise((resolve) =>
-          setTimeout(resolve, minTimeBetweenRequests - timeSinceLastRequest),
-        );
+        const delay =
+          minTimeBetweenRequests - timeSinceLastRequest + RATE_LIMIT_BUFFER_MS;
+        await new Promise((resolve) => setTimeout(resolve, delay));
       }
 
       const { request, resolve, reject } = this.queue.shift();
@@ -47,7 +49,7 @@ class RateLimiter {
 class OneInchAPI {
   constructor(apiKey) {
     this.apiKey = apiKey;
-    this.rateLimiter = new RateLimiter(9); // 9 requests per second
+    this.rateLimiter = new RateLimiter();
     this.baseUrl = "https://api.1inch.dev";
   }
 
