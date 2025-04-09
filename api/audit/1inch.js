@@ -47,11 +47,11 @@ class RateLimiter {
 class OneInchAPI {
   constructor(apiKey) {
     this.apiKey = apiKey;
-    this.rateLimiter = new RateLimiter(9); // 9 requests per second
+    this.rateLimiter = new RateLimiter(4); // Reduced to 2 requests per second
     this.baseUrl = "https://api.1inch.dev";
   }
 
-  async request(endpoint, params = {}) {
+  async request(endpoint, params = {}, retries = 3) {
     const url = new URL(`${this.baseUrl}${endpoint}`);
     Object.entries(params).forEach(([key, value]) => {
       url.searchParams.append(key, value);
@@ -59,24 +59,54 @@ class OneInchAPI {
 
     console.log(`[1inch] Requesting: ${endpoint}`, { params });
 
-    return this.rateLimiter.enqueue(async () => {
-      const response = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${this.apiKey}`,
-        },
-      });
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const response = await this.rateLimiter.enqueue(async () => {
+          const response = await fetch(url, {
+            headers: {
+              Authorization: `Bearer ${this.apiKey}`,
+            },
+          });
 
-      if (!response.ok) {
-        console.error(
-          `[1inch] Error: ${response.status} ${response.statusText} for ${endpoint}`,
+          if (response.status === 429) {
+            // If rate limited, wait longer before retrying
+            const retryAfter = parseInt(
+              response.headers.get("Retry-After") || "30",
+              10,
+            );
+            await new Promise((resolve) =>
+              setTimeout(resolve, retryAfter * 1000),
+            );
+            throw new Error("Rate limited");
+          }
+
+          if (!response.ok) {
+            console.error(
+              `[1inch] Error: ${response.status} ${response.statusText} for ${endpoint}`,
+            );
+            throw new Error(`${response.status} ${response.statusText}`);
+          }
+
+          const data = await response.json();
+          console.log(`[1inch] Success: ${endpoint}`);
+          return data;
+        });
+
+        return response;
+      } catch (error) {
+        if (attempt === retries) {
+          console.error(
+            `[1inch] Failed after ${retries} attempts: ${error.message}`,
+          );
+          throw error;
+        }
+        console.log(`[1inch] Retry attempt ${attempt} for ${endpoint}`);
+        // Exponential backoff
+        await new Promise((resolve) =>
+          setTimeout(resolve, Math.pow(2, attempt) * 1000),
         );
-        throw new Error(`${response.status} ${response.statusText}`);
       }
-
-      const data = await response.json();
-      console.log(`[1inch] Success: ${endpoint}`);
-      return data;
-    });
+    }
   }
 
   // Portfolio endpoints
@@ -95,7 +125,8 @@ class OneInchAPI {
   // NFT endpoints
   async getNFTsByAddress(
     address,
-    chainIds = [1, 137, 42161, 43114, 100, 8217, 10, 8453],
+    // chainIds = [1, 137, 42161, 43114, 100, 8217, 10, 8453],
+    chainIds = [1, 8453],
   ) {
     const data = await this.request("/nft/v2/byaddress", {
       chainIds: chainIds.join(","),
@@ -107,8 +138,9 @@ class OneInchAPI {
   // History endpoints
   async getHistory(
     address,
-    chainIds = [1, 137, 42161, 43114, 100, 8217, 10, 8453],
-    limit = 300,
+    // chainIds = [1, 137, 42161, 43114, 100, 8217, 10, 8453],
+    chainIds = [1, 8453],
+    limit = 100,
   ) {
     const results = [];
 

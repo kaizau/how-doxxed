@@ -25,7 +25,10 @@ export default async function handler(request, response) {
   try {
     const requestEnsNames = addressToEns(address);
     const requestValue = oneInchAPI.getPortfolioValueChart(address);
-    const requestNFTs = oneInchAPI.getNFTsByAddress(address);
+    const requestNFTs = oneInchAPI.getNFTsByAddress(address).catch((error) => {
+      console.error("Failed to fetch NFTs:", error);
+      return []; // Return empty array if NFT fetch fails
+    });
     const requestHistory = oneInchAPI.getHistory(address);
 
     [value, ensNames, nfts, history] = await Promise.all([
@@ -35,6 +38,7 @@ export default async function handler(request, response) {
       requestHistory,
     ]);
   } catch (error) {
+    console.error("Error in audit:", error);
     return response.status(400).json({ error: "Error fetching data" });
   }
 
