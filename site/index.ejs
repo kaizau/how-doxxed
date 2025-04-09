@@ -3,7 +3,21 @@
   <head>
     <%- include("./_shared/head.ejs", {
       title: "How Doxxed Am I?",
-      description: "Your onchain activity might be exposing more about you than you think."
+      description: "Your onchain activity might be exposing more about you than you think.",
+      frame: {
+        version: "next",
+        imageUrl: "https://howdoxxed.xyz/doxxie.7f6f3970.png",
+        button: {
+          title: "🚩 Start",
+          action: {
+            type: "launch_frame",
+            url: "https://howdoxxed.xyz",
+            name:"How Doxxed Am I?",
+            splashImageUrl: "https://howdoxxed.xyz/doxxie.7f6f3970.png",
+            splashBackgroundColor:"#f5f0ec"
+          }
+        }
+            }
     }) %>
     <link rel="stylesheet" href="/site/styles/magnify.css">
   </head>

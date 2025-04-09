@@ -1,6 +1,10 @@
 import { analyzeBrowser, analyzeLocation } from "./audit/browser.js";
 import { analyzeAddress } from "./audit/address.js";
 import { updateResults } from "./ui/index.js";
+import { sdk } from "@farcaster/frame-sdk";
+
+// Initialize Farcaster SDK
+sdk.actions.ready();
 
 const DOM = {
   form: document.getElementById("search-form"),
