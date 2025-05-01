@@ -1,10 +1,15 @@
 {
+  "accountAssociation": {
+    "header": "eyJmaWQiOjQ0NjY5NywidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDgyYTY4YzM5NWM4MzVlNzJiMDYzMTFhRTY3ZjVBRjA3ZkI2YzQ2NTgifQ",
+    "payload": "eyJkb21haW4iOiJob3dkb3h4ZWQueHl6In0",
+    "signature": "MHg3ODc5ZGJjMjg4YWMzYTNiYzk4MTM0NjU3MTk5NThlMjBiYjg4NzIzYTYyNzU1ZjY3MzhjM2Q5OTMzYTg0MzlkMjYwYTFkN2EzYTk1MWI5ODg2OThlYjBhMjkzODNlNTBkNWQ2MDIzYTk5NDU4MDJmMjBiNzJhYTBiNmY1ZWY5YzFi"
+  },
   "frame": {
     "version": "1",
     "name": "How Doxxed Am I?",
     "iconUrl": "https://howdoxxed.xyz/doxxie.7f6f3970.png",
-    "homeUrl": "https://howdoxxed.xyz/framesV2/",
-    "imageUrl": "https://howdoxxed.xyz/framesV2/opengraph-image",
+    "homeUrl": "https://howdoxxed.xyz/",
+    "imageUrl": "https://howdoxxed.xyz/doxxie.7f6f3970.png",
     "buttonTitle": "Start",
     "splashImageUrl": "https://howdoxxed.xyz/doxxie.7f6f3970.png",
     "splashBackgroundColor": "#f5f0ec"
